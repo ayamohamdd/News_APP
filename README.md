@@ -1,16 +1,9 @@
-# flutter_application_3
+# News App
 
-A new Flutter project.
+This Flutter application is a news app that allows users to fetch the latest news using a news API and publish their own news locally using Sqflite for offline access.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+.Fetches news articles from a news API.
+.Displays the news articles with title, description, and image.
+.Publish news locally using Sqflite for offline access.
