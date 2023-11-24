@@ -4,6 +4,6 @@ This Flutter application is a news app that allows users to fetch the latest new
 
 ## Getting Started
 
-.Fetches news articles from a news API.
-.Displays the news articles with title, description, and image.
+.Fetches news articles from a news API.<br>
+.Displays the news articles with title, description, and image.<br>
 .Publish news locally using Sqflite for offline access.
