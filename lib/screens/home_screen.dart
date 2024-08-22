@@ -1,21 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_3/data/remote/dio_helper.dart';
 import 'package:flutter_application_3/models/article_model.dart';
-import 'package:flutter_application_3/screens/mynews_screen.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
+class HomeScreen extends StatelessWidget {
+  HomeScreen({super.key});
 
   List<Article> articles = [
     Article(
@@ -45,31 +33,29 @@ class _HomeScreenState extends State<HomeScreen> {
           'assets/images/news-newspapers-folded-stacked-word-wooden-block-puzzle-dice-concept-newspaper-media-press-release-42301371.png',
     ),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          leading: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.white,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+            ),
           ),
           title: const Text("News App", style: TextStyle(color: Colors.white)),
           backgroundColor: Colors.orange,
           centerTitle: true,
-          actions: [
-            IconButton(
-              icon: const Icon(
+          actions: const [
+           Icon(
                 Icons.person,
                 color: Colors.white,
-                size: 30,
-              ),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const MyNewsScreen()));
-              },
+                size: 30,             
             )
           ],
         ),

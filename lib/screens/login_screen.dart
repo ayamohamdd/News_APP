@@ -10,6 +10,15 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool isPassword = true;
+  late TextEditingController email;
+  late TextEditingController password;
+  final GlobalKey<FormState> _formKey = GlobalKey();
+  @override
+  void initState() {
+    email = TextEditingController();
+    password = TextEditingController();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,46 +54,78 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 20,
               ),
               Form(
+                  key: _formKey,
                   child: Column(
-                children: [
-                  TextFormField(
-                    decoration: const InputDecoration(
-                        // hintText: "Email",
-                        labelText: "Email",
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            borderSide: BorderSide(color: Colors.orange)),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            borderSide: BorderSide(color: Colors.orange))),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  TextFormField(
-                    obscureText: isPassword,
-                    decoration: InputDecoration(
-                      // hintText: "Password",
-                      labelText: "Password",
-                      suffixIcon: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              isPassword = !isPassword;
-                            });
-                          },
-                          icon: Icon(isPassword == true
-                              ? Icons.visibility_off
-                              : Icons.visibility)),
-                      focusedBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          borderSide: BorderSide(color: Colors.orange)),
-                      enabledBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          borderSide: BorderSide(color: Colors.orange)),
-                    ),
-                  )
-                ],
-              )),
+                    children: [
+                      TextFormField(
+                        controller: email,
+                        validator: (value) {
+                          if (value!.isEmpty) return "Email Cannot be empty";
+                          return null;
+                        },
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.email_outlined),
+                          labelText: "Email",
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              borderSide: BorderSide(color: Colors.orange)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              borderSide: BorderSide(color: Colors.orange)),
+                          errorBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              borderSide: BorderSide(color: Colors.orange)),
+                          focusedErrorBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              borderSide: BorderSide(color: Colors.orange)),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      TextFormField(
+                        validator: (value) {
+                          if (value!.isEmpty) return "Password Cannot be empty";
+                          return null;
+                        },
+                        controller: password,
+                        obscureText: isPassword,
+                        decoration: InputDecoration(
+                          labelText: "Password",
+                          prefixIcon: Icon(Icons.lock),
+                          suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  isPassword = !isPassword;
+                                });
+                              },
+                              icon: Icon(isPassword == true
+                                  ? Icons.visibility_off
+                                  : Icons.visibility)),
+                          focusedBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              borderSide: BorderSide(color: Colors.orange)),
+                          enabledBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              borderSide: BorderSide(color: Colors.orange)),
+                          errorBorder: const OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              borderSide: BorderSide(color: Colors.orange)),
+                          focusedErrorBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                              borderSide: BorderSide(color: Colors.orange)),
+                        ),
+                      )
+                    ],
+                  )),
               const SizedBox(
                 height: 40,
               ),
@@ -95,10 +136,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       foregroundColor: Colors.white,
                       fixedSize: const Size(300, 35)),
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomeScreen()));
+                    if (_formKey.currentState!.validate()) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomeScreen()));
+                    }
                   },
                   child: const Text(
                     "Login",
